@@ -3,130 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub 手机测试页</title>
-    <style>
-        /* 只保留核心样式，删掉冗余代码 */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Noto+Sans+SC:wght@400;500&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            touch-action: manipulation;
+    <title>GITHUB 测试网络平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 自定义Tailwind配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1',
+                        secondary: '#EC4899',
+                        dark: '#1E293B',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
         }
-        
-        body {
-            min-height: 100vh;
-            padding: 15px;
-            background: #0a001f;
-            background-image: radial-gradient(circle at 30% 40%, #ff2a6d 0%, transparent 30%),
-                              radial-gradient(circle at 70% 60%, #05d9e8 0%, transparent 30%);
-            color: #f0f0f0;
-            font-family: 'Noto Sans SC', sans-serif;
-        }
-        
-        /* 核心卡片：保留炫酷感但简化结构 */
-        .main-card {
-            max-width: 420px;
-            margin: 30px auto;
-            padding: 20px;
-            background: rgba(15, 5, 30, 0.9);
-            border: 1px solid #ff2a6d;
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(255, 42, 109, 0.3);
-        }
-        
-        .title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            text-align: center;
-            color: #05d9e8;
-            text-shadow: 0 0 6px rgba(5, 217, 232, 0.6);
-            margin-bottom: 8px;
-        }
-        
-        .tagline {
-            font-size: 0.8rem;
-            text-align: center;
-            color: #f0f0f080;
-            margin-bottom: 20px;
-        }
-        
-        /* 内容模块：精简间距和边框 */
-        .block {
-            margin-bottom: 18px;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-        
-        .block h3 {
-            font-size: 0.95rem;
-            color: #ff2a6d;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .block h3 span {
-            margin-right: 6px;
-        }
-        
-        /* 按钮：简化样式但保留炫酷交互 */
-        .test-btn {
-            width: 100%;
-            padding: 11px 0;
-            background: transparent;
-            border: 1px solid #05d9e8;
-            border-radius: 6px;
-            color: #05d9e8;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 0 8px rgba(5, 217, 232, 0.4);
-            transition: all 0.3s;
-        }
-        
-        .test-btn:hover {
-            background: rgba(5, 217, 232, 0.1);
-            box-shadow: 0 0 12px rgba(5, 217, 232, 0.6);
-        }
-        
-        /* 底部信息：极简显示 */
-        .dev-info {
-            text-align: center;
-            margin: 20px auto 10px;
-            font-size: 0.7rem;
-            color: #f0f0f060;
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20;
+            }
+            .btn-glow {
+                @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.6)];
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-15px); }
+                100% { transform: translateY(0px); }
+            }
         }
     </style>
 </head>
-<body>
-    <div class="main-card">
-        <h1 class="title">GITHUB TEST</h1>
-        <p class="tagline">手机端 · git</p>
+<body class="bg-dark text-white font-inter min-h-screen overflow-x-hidden">
+    <!-- 背景粒子效果 -->
+    <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0 opacity-30"></div>
 
-        <div class="block">
-            <h3><span>📱</span>页面说明</h3>
-            <p>本网页仅供用来测试互联网连接效果.感谢由GitHub Pages提供的平台支持.特别致敬"哔哩哔哩不知名up主"以及"豆角"技术支持</p>
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full bg-dark/80 backdrop-blur-md z-50 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gradient">
+                <<i class="fa fa-github mr-2"></</i>GITHUB 测试网络平台
+            </h1>
+            <button id="teamBtn" class="bg-primary/20 text-primary px-4 py-2 rounded-full btn-glow flex items-center">
+                <<i class="fa fa-users mr-2"></</i>开发者团队
+            </button>
         </div>
+    </nav>
 
-        <div class="block">
-            <h3><span>🔧</span>测试功能</h3>
-            <p>点下面按钮能测交互，弹提示就说明页面部署没问题，手机触摸操作也正常。</p>
+    <!-- 团队信息弹窗 -->
+    <div id="teamModal" class="fixed inset-0 bg-dark/90 backdrop-blur-lg z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-dark/95 border border-primary/30 rounded-2xl p-6 md:p-8 w-11/12 max-w-2xl max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gradient">开发者团队</h2>
+                <button id="closeModal" class="text-white/70 hover:text-white text-xl">
+                    <<i class="fa fa-times"></</i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 主开发者：WKD -->
+                <div class="bg-white/5 p-4 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                            <<i class="fa fa-user-circle text-primary text-xl"></</i>
+                        </div>
+                        <h3 class="font-semibold text-lg">WKD（主开发者）</h3>
+                    </div>
+                    <p class="text-white/60 text-sm">负责平台整体开发，包括页面交互、游戏功能与网络测试模块实现，主导项目设计与落地。</p>
+                </div>
+                <!-- 技术指导：豆角 -->
+                <div class="bg-white/5 p-4 rounded-lg card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mr-3">
+                            <<i class="fa fa-lightbulb-o text-secondary text-xl"></</i>
+                        </div>
+                        <h3 class="font-semibold text-lg">豆角（技术指导）</h3>
+                    </div>
+                    <p class="text-white/60 text-sm">提供技术方案支持，解决开发过程中的关键问题，优化代码结构与性能，保障平台稳定性。</p>
+                </div>
+            </div>
         </div>
-
-        <button class="test-btn" id="testBtn">TEST</button>
     </div>
 
-    <div class="dev-info">
-        开发者: WKD | 技术指导: 豆角
+    <!-- 首页内容 -->
+    <main class="container mx-auto px-4 pt-24 pb-16 relative z-10">
+        <!-- 页面介绍 -->
+        <section class="mb-16 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 text-gradient animate-float">GITHUB 测试网络平台</h2>
+            <p class="text-white/70 max-w-2xl mx-auto text-lg">
+                本平台提供轻量级网络连通性测试工具，内置多款小游戏。<span class="text-primary font-medium">请注意：</span>
+                此处测试仅为前端模拟的网络状态检测，<span class="text-secondary font-medium">非真实互联网连接诊断</span>，
+                主要用于验证页面功能正常性与交互体验。
+            </p>
+        </section>
+
+        <!-- 小游戏区域 -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-8 text-center">
+                <<i class="fa fa-gamepad text-primary mr-2"></</i>测试小游戏
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 游戏1：反应测试 -->
+                <div class="bg-white/5 rounded-xl p-6 border border-white/10 card-hover">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <<i class="fa fa-bolt text-2xl text-primary"></</i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-center">反应速度测试</h4>
+                    <p class="text-white/60 text-sm mb-6 text-center">点击随机出现的色块，测试你的反应速度，同时验证页面交互流畅度。</p>
+                    <div class="flex justify-center">
+                        <button id="game1Btn" class="bg-primary px-6 py-2 rounded-full btn-glow">
+                            开始游戏
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 游戏2：点击计数 -->
+                <div class="bg-white/5 rounded-xl p-6 border border-white/10 card-hover">
+                    <div class="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <<i class="fa fa-hand-pointer-o text-2xl text-secondary"></</i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-center">10秒点击挑战</h4>
+                    <p class="text-white/60 text-sm mb-6 text-center">10秒内快速点击按钮，统计点击次数，测试页面响应性能。</p>
+                    <div class="flex justify-center">
+                        <button id="game2Btn" class="bg-secondary px-6 py-2 rounded-full btn-glow">
+                            开始挑战
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 游戏3：记忆卡片 -->
+                <div class="bg-white/5 rounded-xl p-6 border border-white/10 card-hover">
+                    <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <<i class="fa fa-th text-2xl text-green-500"></</i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3 text-center">记忆配对卡片</h4>
+                    <p class="text-white/60 text-sm mb-6 text-center">翻转卡片寻找相同图案，锻炼记忆力，验证页面渲染稳定性。</p>
+                    <div class="flex justify-center">
+                        <button id="game3Btn" class="bg-green-500 px-6 py-2 rounded-full btn-glow">
+                            开始游戏
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 网络测试区域 -->
+        <section>
+            <h3 class="text-2xl font-bold mb-8 text-center">
+                <<i class="fa fa-signal text-primary mr-2"></</i>网络连通性测试
+            </h3>
+            <div class="max-w-2xl mx-auto bg-white/5 rounded-xl p-6 border border-white/10">
+                <p class="text-white/70 mb-6 text-center">
+                    点击下方按钮进行模拟网络测试，测试结果仅为前端演示，<span class="text-secondary font-medium">不代表真实网络状况</span>。
+                </p>
+                <div class="flex justify-center mb-6">
+                    <button id="testNetBtn" class="bg-primary px-8 py-3 rounded-full btn-glow text-lg">
+                        <<i class="fa fa-refresh mr-2"></</i>开始测试
+                    </button>
+                </div>
+                <div id="testResult" class="hidden">
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white/80">连接状态</span>
+                            <span id="connStatus" class="text-green-500 font-medium">已连接</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white/80">延迟</span>
+                            <span id="latency" class="text-white">35ms</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white/80">模拟下载速度</span>
+                            <span id="download" class="text-white">18.2 Mbps</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-white/80">模拟上传速度</span>
+                            <span id="upload" class="text-white">5.7 Mbps</span>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-primary to-secondary w-0 transition-all duration-1500"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark/80 border-t border-white/10 py-6 relative z-10">
+        <div class="container mx-auto px-4 text-center text-white/50 text-sm">
+            <p>© 2025 GITHUB 测试网络平台 | 仅用于功能测试，非真实网络诊断工具</p>
+        </div>
+    </footer>
+
+    <!-- 游戏模态框 -->
+    <div id="gameModal" class="fixed inset-0 bg-dark/95 backdrop-blur-lg z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-dark border border-white/10 rounded-2xl p-6 w-11/12 max-w-2xl max-h-[85vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="gameModalTitle" class="text-2xl font-bold text-gradient">游戏标题</h2>
+                <button id="closeGameModal" class="text-white/70 hover:text-white text-xl">
+                    <<i class="fa fa-times"></</i>
+                </button>
+            </div>
+            <div id="gameContent" class="min-h-[300px] flex flex-col items-center justify-center">
+                <!-- 游戏内容将通过JS动态插入 -->
+            </div>
+        </div>
     </div>
 
+    <!-- 粒子效果JS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 极简交互逻辑，手动写的简单事件
-        document.getElementById('testBtn').onclick = function() {
-            alert('手机测试正常！页面能正常访问～');
-        };
-    </script>
-</body>
-</html>
+        // 初始化粒子背景
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#6366F1" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#EC4899",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } },
+                    "push": { "particles_nb": 4 }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // DOM元素
+        const teamBtn = document.getElementById('teamBtn');
+        const teamModal = document.getElementById('teamModal');
+        const closeModal = document.getElementById('closeModal');
+        const gameModal = document.getElementById('gameModal');
+        const closeGameModal = document.getElementById('closeGameModal');
+        const gameModalTitle = document.getElementById('gameModalTitle');
+        const gameContent = document.getElementById('gameContent');
+        const testNetBtn = document.getElementById('testNetBtn');
+        const testResult = document.getElementById('testResult');
+        const progressBar = document.getElementById('progressBar');
+        const connStatus = document.getElementById('connStatus');
+        const latency = document.getElementById('latency');
+        const download = document.getElementById('download');
+        const upload = document.getElementById('upload');
+        const game1Btn = document.getElementById('game1Btn');
+        const game2Btn = document.getElementById('game2Btn');
+        const game3Btn = document.getElementById('game3Btn');
+
+        // 团队模态框控制
+        teamBtn.addEventListener('click', () => {
+            teamModal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModal.addEventListener('click', () => {
+            teamModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        });
+
+        // 游戏模态框控制
+        function openGameModal(title) {
+            gameModalTitle.textContent = title;
+            gameModal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+            initGameContent(title);
+        }
+
+        closeGameModal.addEventListener('click', () => {
+            gameModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+            gameContent.innerHTML = ''; // 清空游戏内容
+        });
+
+        // 初始化游戏内容（简单模拟）
+        function initGameContent(gameTitle) {
+            let content = '';
+            if (gameTitle === '反应速度测试') {
+                content = `
+                    <div class="text-center">
+                        <p class="text-white/70 mb-6">点击下方随机出现的彩色方块</p>
+                        <div id="reactionBox" class="w-32 h-32 bg-gray-600 rounded-lg mb-6 cursor-pointer transition-all"></div>
+                        <p id="reactionScore" class="text-xl">点击次数：0</p>
+                        <button id="resetReaction" class="mt-4 bg-primary px-4 py-2 rounded-full">重置</button>
+                    </div
