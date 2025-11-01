@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 手机测试页</title>
+    <style>
+        /* 只保留核心样式，删掉冗余代码 */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Noto+Sans+SC:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            touch-action: manipulation;
+        }
+        
+        body {
+            min-height: 100vh;
+            padding: 15px;
+            background: #0a001f;
+            background-image: radial-gradient(circle at 30% 40%, #ff2a6d 0%, transparent 30%),
+                              radial-gradient(circle at 70% 60%, #05d9e8 0%, transparent 30%);
+            color: #f0f0f0;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        /* 核心卡片：保留炫酷感但简化结构 */
+        .main-card {
+            max-width: 420px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(15, 5, 30, 0.9);
+            border: 1px solid #ff2a6d;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(255, 42, 109, 0.3);
+        }
+        
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #05d9e8;
+            text-shadow: 0 0 6px rgba(5, 217, 232, 0.6);
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            font-size: 0.8rem;
+            text-align: center;
+            color: #f0f0f080;
+            margin-bottom: 20px;
+        }
+        
+        /* 内容模块：精简间距和边框 */
+        .block {
+            margin-bottom: 18px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        .block h3 {
+            font-size: 0.95rem;
+            color: #ff2a6d;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .block h3 span {
+            margin-right: 6px;
+        }
+        
+        /* 按钮：简化样式但保留炫酷交互 */
+        .test-btn {
+            width: 100%;
+            padding: 11px 0;
+            background: transparent;
+            border: 1px solid #05d9e8;
+            border-radius: 6px;
+            color: #05d9e8;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(5, 217, 232, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .test-btn:hover {
+            background: rgba(5, 217, 232, 0.1);
+            box-shadow: 0 0 12px rgba(5, 217, 232, 0.6);
+        }
+        
+        /* 底部信息：极简显示 */
+        .dev-info {
+            text-align: center;
+            margin: 20px auto 10px;
+            font-size: 0.7rem;
+            color: #f0f0f060;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-card">
+        <h1 class="title">GITHUB TEST</h1>
+        <p class="tagline">手机端 · git</p>
+
+        <div class="block">
+            <h3><span>📱</span>页面说明</h3>
+            <p>本网页仅供用来测试互联网连接效果.感谢由GitHub Pages提供的平台支持.特别致敬"哔哩哔哩不知名up主"以及"豆角"技术支持</p>
+        </div>
+
+        <div class="block">
+            <h3><span>🔧</span>测试功能</h3>
+            <p>点下面按钮能测交互，弹提示就说明页面部署没问题，手机触摸操作也正常。</p>
+        </div>
+
+        <button class="test-btn" id="testBtn">TEST</button>
+    </div>
+
+    <div class="dev-info">
+        开发者: WKD | 技术指导: 豆角
+    </div>
+
+    <script>
+        // 极简交互逻辑，手动写的简单事件
+        document.getElementById('testBtn').onclick = function() {
+            alert('手机测试正常！页面能正常访问～');
+        };
+    </script>
+</body>
+</html>
