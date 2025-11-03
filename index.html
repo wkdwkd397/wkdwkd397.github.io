@@ -3,178 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GITHUB 测试网络平台</title>
+    <title>看到的打瓦</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        main: '#2563eb',
-                        accent: '#f43f5e',
-                        wechat: '#07c160',
-                    },
-                }
-            }
-        }
-    </script>
     <style>
-        /* 轻量核心动画 */
-        .glow { transition: all 0.3s; }
-        .glow:hover { box-shadow: 0 0 15px rgba(37, 99, 235, 0.7); }
-        .glow-wechat:hover { box-shadow: 0 0 15px rgba(7, 193, 96, 0.7); }
-        .float { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-8px);} }
-        .modal-in { animation: modalIn 0.4s forwards; }
-        @keyframes modalIn { from{opacity:0;transform: scale(0.9);} to{opacity:1;transform: scale(1);} }
+        /* 标题旋转动画 */
+        @keyframes rotateTitle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* 背景闪烁动画 */
+        @keyframes bgFlash {
+            0%,100% { background-color: #000; }
+            25% { background-color: #1a0033; }
+            50% { background-color: #001a33; }
+            75% { background-color: #33001a; }
+        }
+        /* 标题霓虹光效 */
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px #05d9e8, 0 0 20px #05d9e8; }
+            100% { text-shadow: 0 0 10px #ff2a6d, 0 0 20px #ff2a6d; }
+        }
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <!-- 导航栏 -->
-    <nav class="fixed top-0 w-full bg-gray-900/90 backdrop-blur-sm border-b border-gray-800 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-xl font-bold flex items-center">
-                <<<i class="fa fa-github text-main mr-2"></</i>
-                <span class="bg-gradient-to-r from-main to-accent bg-clip-text text-transparent">GITHUB 测试网络平台</span>
-            </h1>
-            <div class="flex gap-3">
-                <!-- 呼叫打瓦按钮（修正名称） -->
-                <a href="weixin://" class="bg-wechat/10 text-wechat px-4 py-2 rounded-full glow glow-wechat flex items-center">
-                    <<<i class="fa fa-weixin mr-2"></</i>呼叫打瓦
-                </a>
-                <!-- 开发团队按钮 -->
-                <button id="teamBtn" class="bg-main/10 text-main px-4 py-2 rounded-full glow flex items-center">
-                    <<<i class="fa fa-user mr-2"></</i>开发团队
-                </button>
-            </div>
-        </div>
-    </nav>
+<body class="min-h-screen overflow-hidden relative animate-[bgFlash_3s_ease-in-out_infinite]">
+    <!-- 粒子背景（保留氛围感） -->
+    <div id="particles-js"></div>
 
-    <!-- 团队弹窗 -->
-    <div id="teamModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-gray-800 rounded-xl p-6 w-11/12 max-w-md modal-in">
-            <div class="flex justify-between items-center mb-5">
-                <h2 class="text-xl font-bold text-main">开发团队信息</h2>
-                <button id="closeModal" class="text-gray-400 hover:text-white text-xl">
-                    <<<i class="fa fa-times"></</i>
-                </button>
-            </div>
-            <!-- 主开发者 -->
-            <div class="mb-4 p-3 bg-gray-700/50 rounded-lg">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-full bg-main/20 flex items-center justify-center mr-3">
-                        <<<i class="fa fa-code text-main"></</i>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">主开发者：WKD</h3>
-                        <p class="text-xs text-gray-400">负责平台全功能开发与实现</p>
-                    </div>
-                </div>
-            </div>
-            <!-- 技术指导 -->
-            <div class="mb-4 p-3 bg-gray-700/50 rounded-lg">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
-                        <<<i class="fa fa-lightbulb-o text-accent"></</i>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold">技术指导：豆角</h3>
-                        <p class="text-xs text-gray-400">提供技术方案与问题解决支持</p>
-                    </div>
-                </div>
-            </div>
-            <!-- 团队状态 -->
-            <div class="p-3 bg-gray-700/50 rounded-lg">
-                <p class="text-sm flex items-center"><<<i class="fa fa-info-circle text-gray-400 mr-2"></</i>其他团队成员：无</p>
-            </div>
-        </div>
+    <!-- 旋转标题区 -->
+    <div class="relative z-10 flex items-center justify-center min-h-screen px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-white 
+                   animate-[rotateTitle_10s_linear_infinite,titleGlow_2s_ease-in-out_infinite_alternate]">
+            彭文博我操你妈
+        </h1>
     </div>
 
-    <!-- 主体内容 -->
-    <main class="container mx-auto px-4 pt-24 pb-16">
-        <!-- 页面介绍 -->
-        <section class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 float">
-                <span class="bg-gradient-to-r from-main to-accent bg-clip-text text-transparent">网络连通性测试</span>
-            </h2>
-            <p class="text-gray-400 max-w-md mx-auto">
-                仅为前端模拟测试，<span class="text-accent font-medium">非真实互联网诊断</span>，用于验证页面功能与交互
-            </p>
-        </section>
-
-        <!-- 网络测试区 -->
-        <section class="max-w-md mx-auto mb-12 bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-            <h3 class="text-lg font-semibold mb-4 flex items-center">
-                <<<i class="fa fa-signal text-main mr-2"></</i>开始测试
-            </h3>
-            <button id="testBtn" class="w-full bg-main text-white py-3 rounded-lg glow mb-4">
-                <<<i class="fa fa-refresh mr-2"></</i>启动模拟测试
-            </button>
-            <!-- 测试结果（默认隐藏） -->
-            <div id="testResult" class="hidden">
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between"><span class="text-gray-400">连接状态</span><span class="text-green-400">正常</span></div>
-                    <div class="flex justify-between"><span class="text-gray-400">延迟</span><span>42ms</span></div>
-                    <div class="flex justify-between"><span class="text-gray-400">模拟下载</span><span>15.8 Mbps</span></div>
-                </div>
-                <div class="h-2 bg-gray-700 rounded-full mt-4 overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-main to-accent" style="width: 85%"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 小游戏区 -->
-        <section>
-            <h3 class="text-lg font-semibold mb-6 text-center">
-                <<<i class="fa fa-gamepad text-accent mr-2"></</i>测试小游戏
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md mx-auto">
-                <!-- 游戏1 -->
-                <button class="bg-gray-800/50 rounded-xl p-4 border border-gray-700 glow text-left">
-                    <h4 class="font-medium mb-1">反应点击</h4>
-                    <p class="text-xs text-gray-400">点击随机色块</p>
-                </button>
-                <!-- 游戏2 -->
-                <button class="bg-gray-800/50 rounded-xl p-4 border border-gray-700 glow text-left">
-                    <h4 class="font-medium mb-1">10秒挑战</h4>
-                    <p class="text-xs text-gray-400">快速点击计数</p>
-                </button>
-            </div>
-        </section>
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="bg-gray-800/50 py-4 text-center text-gray-500 text-xs">
-        <p>© GITHUB 测试网络平台 | 仅作功能测试使用</p>
-    </footer>
-
-    <!-- 核心交互JS -->
+    <!-- 粒子效果（简化参数，适配手机） -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 团队弹窗控制
-        const teamBtn = document.getElementById('teamBtn');
-        const teamModal = document.getElementById('teamModal');
-        const closeModal = document.getElementById('closeModal');
-        
-        teamBtn.addEventListener('click', () => {
-            teamModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeModal.addEventListener('click', () => {
-            teamModal.classList.add('hidden');
-            document.body.style.overflow = '';
-        });
-
-        // 网络测试功能
-        const testBtn = document.getElementById('testBtn');
-        const testResult = document.getElementById('testResult');
-        
-        testBtn.addEventListener('click', () => {
-            testResult.classList.toggle('hidden');
-            testBtn.innerHTML = testResult.classList.contains('hidden') 
-                ? '<<<i class="fa fa-refresh mr-2"></</i>启动模拟测试' 
-                : '<<<i class="fa fa-times mr-2"></</i>隐藏结果';
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 40, "density": { "enable": true, "value_area": 400 } },
+                "color": { "value": ["#05d9e8", "#ff2a6d"] },
+                "opacity": { "value": 0.7 },
+                "size": { "value": 2 },
+                "move": { "enable": true, "speed": 0.8 }
+            },
+            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+            "retina_detect": true
         });
     </script>
 </body>
