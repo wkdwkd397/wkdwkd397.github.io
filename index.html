@@ -3,55 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>看到的打瓦</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>网络安全合规管控系统</title>
     <style>
-        /* 标题旋转动画 */
-        @keyframes rotateTitle {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* 基础庄重样式，强化权威感 */
+        body {
+            margin: 0;
+            padding: 60px 20px;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: #0a1220;
+            font-family: "SimHei", "Microsoft YaHei", sans-serif;
+            color: #e6e6e6;
+            text-align: center;
         }
-        /* 背景闪烁动画 */
-        @keyframes bgFlash {
-            0%,100% { background-color: #000; }
-            25% { background-color: #1a0033; }
-            50% { background-color: #001a33; }
-            75% { background-color: #33001a; }
+
+        /* 标题样式：警示红+轻微脉冲 */
+        .title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ff3b30;
+            text-shadow: 0 0 8px rgba(255, 59, 48, 0.4);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            animation: titlePulse 3s ease infinite alternate;
         }
-        /* 标题霓虹光效 */
-        @keyframes titleGlow {
-            0% { text-shadow: 0 0 10px #05d9e8, 0 0 20px #05d9e8; }
-            100% { text-shadow: 0 0 10px #ff2a6d, 0 0 20px #ff2a6d; }
+
+        /* 紧急求助按钮：醒目红+闪烁提示 */
+        .emergency-help {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 900;
         }
-        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
+        #helpBtn {
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #ff4757, #ff6b81);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+            transition: all 0.3s ease;
+            animation: helpBlink 1.5s ease infinite alternate;
+        }
+        #helpBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.7);
+        }
+
+        /* 提示文字：左对齐+法规引用 */
+        .tip {
+            font-size: 1.1rem;
+            color: #b3c1d1;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            line-height: 1.8;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        /* 密码框区域：简洁正式 */
+        .password-box {
+            margin-top: 20px;
+            margin-bottom: 70px;
+        }
+        #password {
+            padding: 14px 22px;
+            width: 320px;
+            border: 2px solid #1c74d8;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        #password:focus {
+            border-color: #409cff;
+            box-shadow: 0 0 12px rgba(64, 156, 255, 0.3);
+        }
+
+        /* 按钮样式：官方蓝/绿，无过度花哨 */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #1c74d8, #2a86db);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-left: 12px;
+        }
+        .btn:hover {
+            background: linear-gradient(90deg, #2a86db, #3a95eb);
+        }
+        .btn:active {
+            background: #1c74d8;
+        }
+        #devBtn {
+            background: linear-gradient(90deg, #0f9d58, #1aa762);
+        }
+        #devBtn:hover {
+            background: linear-gradient(90deg, #1aa762, #21b36b);
+        }
+        #devBtn:active {
+            background: #0f9d58;
+        }
+
+        /* 开发者弹窗：备案风格 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #111a29;
+            padding: 35px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 25px rgba(64, 156, 255, 0.2);
+            border: 1px solid rgba(64, 156, 255, 0.2);
+        }
+        .modal-title {
+            font-size: 1.6rem;
+            color: #409cff;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        .dev-info {
+            text-align: left;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+        .dev-item {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .dev-role {
+            color: #b3c1d1;
+            font-weight: 600;
+            display: inline-block;
+            width: 120px;
+        }
+        .dev-name {
+            color: #34d399;
+        }
+        .tribute {
+            text-align: left;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tribute-title {
+            color: #ff3b30;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .tribute-name {
+            color: #fbbf24;
+            font-weight: 500;
+        }
+        #closeModal {
+            margin-top: 25px;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        /* 紧急维修页面样式：红色警示+故障氛围 */
+        .emergency-page {
+            display: none; /* 默认隐藏，验证通过后显示 */
+            padding: 80px 20px;
+        }
+        .emergency-title {
+            font-size: 3rem;
+            color: #ff4757;
+            margin-bottom: 30px;
+            text-shadow: 0 0 12px rgba(255, 71, 87, 0.6);
+        }
+        .attack-time {
+            font-size: 1.3rem;
+            color: #ffd166;
+            margin: 20px 0 40px;
+            font-weight: 500;
+        }
+        .emergency-desc {
+            font-size: 1.2rem;
+            color: #b3c1d1;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 2;
+            border-left: 4px solid #ff4757;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        /* 动画：保留必要警示感 */
+        @keyframes titlePulse {
+            from { opacity: 0.9; }
+            to { opacity: 1; }
+        }
+        @keyframes helpBlink {
+            from { opacity: 0.9; box-shadow: 0 0 15px rgba(255, 71, 87, 0.5); }
+            to { opacity: 1; box-shadow: 0 0 25px rgba(255, 71, 87, 0.8); }
+        }
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            animation: modalFade 0.4s ease forwards;
+        }
+        @keyframes warnBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .emergency-title {
+            animation: warnBlink 2s ease infinite;
+        }
+
+        /* 隐藏初始页面内容（验证通过后） */
+        .initial-content {
+            transition: opacity 0.5s ease;
+        }
+        .initial-content.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
-<body class="min-h-screen overflow-hidden relative animate-[bgFlash_3s_ease-in-out_infinite]">
-    <!-- 粒子背景（保留氛围感） -->
-    <div id="particles-js"></div>
-
-    <!-- 旋转标题区 -->
-    <div class="relative z-10 flex items-center justify-center min-h-screen px-4">
-        <h1 class="text-4xl md:text-5xl font-bold text-white 
-                   animate-[rotateTitle_10s_linear_infinite,titleGlow_2s_ease-in-out_infinite_alternate]">
-            彭文博我操你妈
-        </h1>
+<body>
+    <!-- 紧急求助按钮：固定在右上角，醒目提示 -->
+    <div class="emergency-help">
+        <button id="helpBtn">如遇危险，请立即点击此处</button>
     </div>
 
-    <!-- 粒子效果（简化参数，适配手机） -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- 初始页面内容：密码输入+开发者按钮 -->
+    <div class="initial-content">
+        <h1 class="title">网络安全合规管控系统</h1>
+        <p class="tip">
+            依据《中华人民共和国网络安全法》第二十一条、《数据安全法》第三十二条规定，本系统已纳入国家安全管控体系。
+            1. 仅限持有效授权的工作人员操作，非授权访问将依法追究法律责任；
+            2. 操作过程需留存日志，供监管部门溯源核查；
+            3. 发现系统异常请立即终止操作，并联系属地公安机关网安部门。
+        </p>
+        <div class="password-box">
+            <input type="password" id="password" placeholder="请输入内部授权密码">
+            <button class="btn" id="submitBtn">验证授权</button>
+            <button class="btn" id="devBtn">开发信息备案</button>
+        </div>
+    </div>
+
+    <!-- 紧急维修页面：验证通过后显示 -->
+    <div class="emergency-page" id="emergencyPage">
+        <h1 class="emergency-title">系统紧急维修通知</h1>
+        <div class="attack-time" id="attackTime"></div> <!-- 动态插入攻击时间 -->
+        <div class="emergency-desc">
+            本程序于上述时间遭外部势力非法攻击，核心数据接口及安全防护模块受损。
+            目前技术团队已启动应急响应预案，正在进行漏洞修复与数据恢复，期间系统暂停所有对外服务。
+            为防止攻击范围扩大，已同步上报公安机关网安部门，待安全检测通过后将第一时间恢复服务。
+            非维修人员请勿尝试访问，以免干扰抢修工作。
+        </div>
+    </div>
+
+    <!-- 开发者弹窗 -->
+    <div class="modal" id="devModal">
+        <div class="modal-content">
+            <h3 class="modal-title">系统开发信息备案</h3>
+            <div class="dev-info">
+                <div class="dev-item">
+                    <span class="dev-role">主开发负责人：</span>
+                    <span class="dev-name">WKD</span>
+                    <p style="margin: 5px 0 0 120px; color: #e2e8f0; font-size: 0.95rem;">负责系统核心功能开发、安全逻辑设计及代码审计</p>
+                </div>
+                <div class="dev-item">
+                    <span class="dev-role">合规技术指导：</span>
+                    <span class="dev-name">公安机关网安部门（110）</span>
+                    <p style="margin: 5px 0 0 120px; color: #e2e8f0; font-size: 0.95rem;">提供合规性审查、安全标准制定及法律风险把控</p>
+                </div>
+            </div>
+            <div class="tribute">
+                <div class="tribute-title">安全协作致谢</div>
+                <p style="margin: 0; color: #e2e8f0; line-height: 1.8;">
+                    感谢 <span class="tribute-name">特警部队队长 林峰</span> 提供的实战场景安全需求梳理，
+                    为系统防渗透、应急响应模块开发提供关键指导，助力系统达到国家安全防护等级标准。
+                </p>
+            </div>
+            <button class="btn" id="closeModal">关闭备案页</button>
+        </div>
+    </div>
+
     <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 40, "density": { "enable": true, "value_area": 400 } },
-                "color": { "value": ["#05d9e8", "#ff2a6d"] },
-                "opacity": { "value": 0.7 },
-                "size": { "value": 2 },
-                "move": { "enable": true, "speed": 0.8 }
-            },
-            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-            "retina_detect": true
+        // 1. 紧急求助功能：点击按钮自动跳转拨号界面（输入110）
+        const helpBtn = document.getElementById('helpBtn');
+        helpBtn.addEventListener('click', function() {
+            // 移动端直接唤起拨号界面，PC端提示复制号码
+            if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                window.location.href = 'tel:110';
+            } else {
+                alert('已为您准备紧急号码 110，建议立即拨打或复制号码至电话拨号界面');
+                // 复制110到剪贴板
+                navigator.clipboard.writeText('110').then(() => {
+                    alert('110 已复制到剪贴板，可直接粘贴至拨号界面');
+                }).catch(err => {
+                    console.log('复制失败：', err);
+                });
+            }
         });
+
+        // 2. 密码验证逻辑：正确密码 W11010086W，验证通过显示紧急维修页
+        const submitBtn = document.getElementById('submitBtn');
+        const passwordInput = document.getElementById('password');
+        const initialContent = document.querySelector('.initial-content');
+        const emergencyPage = document.getElementById('emergencyPage');
+        const attackTimeEl = document.getElementById('attackTime');
+
+        // 生成当前时间前1-3小时的“攻击时间”
+        function getAttackTime() {
+            const now = new Date();
+            const randomHour = Math.floor(Math.random() * 3) + 1; // 1-3小时前
+            now.setHours(now.getHours() - randomHour);
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+            return `本程序于 ${year}年${month}月${day}日 ${hour}:${minute} 遭外部势力攻击`;
+        }
+
+        submitBtn.addEventListener('click', function() {
+            const inputPassword = passwordInput.value.trim();
+            const correctPassword = 'W11010086W';
+
+            if (inputPassword === correctPassword) {
+                attackTimeEl.textContent = getAttackTime();
+                initialContent.classList.add('hide');
+                setTimeout(() => {
+                    emergencyPage.style.display = 'block';
+                }, 500);
+            } else {
+                alert('授权密码错误，已记录本次尝试，非授权人员请勿再次操作');
+                passwordInput.value = '';
+            }
+        });
+        passwordInput.addEventListener('keydown', e => e.key === 'Enter' && submitBtn.click());
+
+        // 3. 开发者弹窗逻辑
+        const devBtn = document.getElementById('devBtn');
+        const devModal = document.getElementById('devModal');
+        const closeModal = document.getElementById('closeModal');
+
+        devBtn.addEventListener('click', () => devModal.classList.add('show'));
+        closeModal.addEventListener('click', () => devModal.classList.remove('show'));
+        devModal.addEventListener('click', e => e.target === devModal && devModal.classList.remove('show'));
     </script>
 </body>
 </html>
