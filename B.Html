@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全警告</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #ff0000;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            text-align: center;
+            padding-top: 15%;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .warning-box {
+            border: 3px solid #ff0000;
+            padding: 40px;
+            display: inline-block;
+            background-color: #220000;
+            box-shadow: 0 0 20px #ff0000;
+            max-width: 90%;
+        }
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.4em;
+            line-height: 1.6;
+        }
+        .countdown {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ffff00;
+        }
+        .developer-info {
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: #cccccc;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-box">
+        <h1>⚠️ 安全警告</h1>
+        <p>如果这是一个非法链接，您的信息已被泄露</p>
+        
+        <p><strong>恭喜您 您已被骗</strong></p>
+        <div class="countdown" id="countdown"></div>
+        
+        <!-- 添加开发人员信息 -->
+        <div class="developer-info">
+            <p>开发维护：WKD | 反诈支持：110反诈中心</p>
+        </div>
+    </div>
+
+    <script>
+        // 10秒后自动跳转到国家反诈中心官网
+        var seconds = 10;
+        var countdownElement = document.getElementById("countdown");
+        
+        function updateCountdown() {
+            if (seconds > 0) {
+                countdownElement.innerHTML = "⏳ 页面将在 " + seconds + " 秒后自动跳转到安全中心...";
+                seconds--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                window.location.href = "https://www.12377.cn";
+            }
+        }
+        
+        // 启动倒计时
+        updateCountdown();
+    </script>
+</body>
+</html>
